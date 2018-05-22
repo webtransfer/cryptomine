@@ -1,0 +1,5 @@
+
+.question {padding:10px 10px 10px 50px; margin-top:20px; border:1px solid #d9d5d5; cursor:pointer; background:url(../app_images/icon-question.png) no-repeat 5px 5px #e8e8e8; -moz-border-radius: 5px;-webkit-border-radius: 5px;-khtml-border-radius: 5px; border-radius: 5px;}
+.question h2 { color: #2e2e2e; font-size:16px;}
+.answer {  display:none; padding:10px; background:#f3f3f3; -moz-border-radius: 5px;-webkit-border-radius: 5px;-khtml-border-radius: 5px; border-radius: 5px; margin-top:10px;}
+

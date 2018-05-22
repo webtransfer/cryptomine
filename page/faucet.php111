@@ -1,0 +1,78 @@
+<div class="content_fullwidth less1">
+<div class="container">
+<?
+if(!isset($_SESSION['id']))
+{
+	Header("Location: /");
+	exit;
+}
+
+if(isset($_POST['go']))
+{
+	
+	$code = $_POST['code'];
+	if(strtoupper($code) == strtoupper($_SESSION["img_code"]))
+	{
+		//$sumHash = rand(1057, 4875);
+		//$sum = $sumHash / 10000000;
+		$sum = 0.005;
+		$dd = time() + (60*60*24);
+		$s = $mysql->query("SELECT * FROM bonus WHERE UserId = '".$_SESSION['id']."' ORDER BY Id DESC LIMIT 1");
+		//$s->execute(array($_SESSION['id']));
+		$f = $s->fetch();
+		if($f['Date'] < time()){
+			$d = $mysql->prepare("UPDATE users SET ghs = ghs + ? WHERE Id = ?");
+			$d->execute(array($sum, $_SESSION['id']));
+			$mysql->query("INSERT INTO bonus SET UserId = '".$_SESSION['id']."', Date = '$dd'");
+			
+			echo success("Вы получили ".$sum." GHS");
+		}
+		else
+		{
+			echo error('Вы уже получили сегодня бонус');
+		}
+		/*
+		if($s->rowCount() > 0)
+		{
+			$f = $s->fetch();
+			if($f['Date'] <= time())
+			{
+				$d = $mysql->prepare("UPDATE users SET ghs = ghs + ? WHERE Id = ?");
+				$d->execute(array($sum, $_SESSION['id']));
+				$mysql->query("INSERT INTO bonus SET UserId = '".$_SESSION['id']."', Date = '$dd'");
+				echo success("You received a bonus of ".$sum." GHS");
+			}
+			else
+			{
+				echo error('You already received the bonus today');
+			}
+		}
+		*/
+	}
+	else
+	{
+		echo error('Не правильная CAPTCHA');
+	}
+}
+
+
+?>
+
+
+<center>
+<form method="post" action="" class="form-signin" role="form">
+<table>
+<tr align="center">
+<td><img src="/cap.php"></td>
+</tr>
+
+<tr align="center">
+<td><input type="text" class="form-control" name="code" value="">
+<br>
+<input type="submit" class="btn btn-lg btn-primary btn-block" name="go" value="Faucet"></td>
+</tr>
+</table>
+</form>
+</center>
+</div>
+</div>

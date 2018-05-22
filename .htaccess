@@ -1,0 +1,8 @@
+AddDefaultCharset CP1251
+RewriteEngine On
+php_flag  display_errors off
+php_flag  display_startup_errors off
+RewriteRule ^([0-9a-z]+)$ /index.php?a=$1 [QSA]
+RewriteRule ^([0-9a-z]+)/$ /index.php?a=$1 [QSA]
+RewriteRule ^([0-9a-z]+)/([0-9a-z]+)$ /index.php?a=$1&sec=$2 [QSA]
+RewriteRule ^([0-9a-z]+)/([0-9a-z]+)/$ /index.php?a=$1&sec=$2 [QSA]
